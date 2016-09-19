@@ -1,0 +1,11 @@
+{
+    "uname": "skhan231",
+    "pwd": "Sak360360",
+    "dbURL": "@ds025263.mlab.com:25263/lts_kb",
+    "secret": "shahbazisliterallythegreatest",
+    "mySQLDB_uname" : "erive_admin",
+    "mySQLDB_pwd" : "3-r1v3!!",
+    "mySQLDB_DBname" : "LTS_KB",
+    "mySQLDB_host" : "erivedbinstance.c254p1lk3lsl.us-east-1.rds.amazonaws.com",   
+    "question_categories": "Blackboard - GENERAL;Blackboard - Grade Center;Blackboard - Collaborate;Blackboard - Groups;Blackboard - Course Copy;Blackboard - Assignments;Blackboard - Tests, Surveys, Pools;Blackboard - Discussion Board;Blackboard - IM;Echo360;ShareStream;SoftChalk;OTHER"
+}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LTS KB | Modify Question</title>
+    <link rel="stylesheet" href="/stylesheets/demo.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+
+
+
+    <!--<link rel="stylesheet" href="/stylesheets/boxstyles.css">-->
+    <link rel="stylesheet" href="/stylesheets/themes/beagle.css" id="medium-editor-theme">
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+    <!-- Bootstrap Core JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+    <!-- bootstrap-dialog JavaScript -->
+    <script src="/js/bootstrap-dialog.js"></script>
+
+    
+
+<link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <style>
+
+    .editable{
+        margin-top: 5px;
+        min-height: 200px;
+        width: 100%;
+        cursor: text;
+        border: 1px solid #aaa;
+        background: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .question-field{
+        margin-top: 5px;
+        width: 100%;
+        cursor: text;
+        border: 1px solid #aaa;
+        background: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+    }
+
+    body{
+        
+        font-size: 17px;
+        background-color: #FFF;
+        
+        font-family: 'Lato';
+    }
+    
+
+ 
+    .input-field:focus + button {
+        z-index: 3;   
+        
+    }
+
+    
+    
+    .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+    ::-webkit-input-placeholder {
+    font-style: italic;
+    color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    
+    }
+    :-moz-placeholder {
+    font-style: italic;  
+     color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+    ::-moz-placeholder {
+    font-style: italic;  
+     color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+    :-ms-input-placeholder {
+    font-style: italic; 
+     color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+
+    .dropdown-menu > .disabled{
+    cursor: not-allowed; 
+    }
+
+    /* The real magic ;) */
+    .dropdown-menu > .disabled > a{
+    pointer-events: none;
+    }
+
+    input[type="text"] {
+        display: block;
+        margin: 0;
+        width: 100%;
+        font-family: sans-serif;
+        font-size: 18px;
+        appearance: none;
+        box-shadow: none;
+        border-radius: none;
+    }
+    input[type="text"]:focus {
+        outline: none;
+    }
+    .style-1 {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+.style-1:focus,
+.style-1.focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+/*buttons*/
+.action-button {
+    width: 48%;
+    /*background: rgb(23 , 70 , 100);*/
+    background: #27AE60;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px .5%;
+}
+
+.green-button {
+    color: white;
+    background-color: #27AE60;
+}
+
+.green-button:hover, .green-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+
+.red-button {
+    color: white;
+    background-color: #e44c4c;
+}
+
+.red-button:hover, .red-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #e44c4c;
+}
+
+.btn-default {
+    background-color:#428bca;
+    color: #FFF;
+ 
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    color: #ffffff;
+    background-color: #27AE60;
+}
+
+th {
+    padding: 5px 5px 5px 5px;
+}
+
+    </style>
+
+</head>
+<body>
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a style="font-size: 30px;" class="navbar-brand" href="<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>">LTS Knowledge Base</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="#">Link</a></li>-->
+        
+ 
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class='fa fa-user'></i> <%= FIRST_NAME %>  <%= LAST_NAME %><b class='caret'></b></a>
+          <ul class="dropdown-menu">
+            <!--<li><a href='logout.php'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>-->            
+            <% if (USER_TYPE === "a" || USER_TYPE === "su") {%>
+            <li><a href="<%= ADD_USERS_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-users'></i> Add Users</a></li>
+             <li class="disabled"><a href="" ><i class=' disabled fa fa-fw fa-book'></i> Review Submissions <span class="badge"><%= NUMBER_OF_SUBMISSIONS_PENDING  %></span></a></li>
+            <% } %>
+            <li ><a href="<%= SUBMIT_KNOWLEDGE_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-pencil-square-o'></i> Submit Question</a></li>
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <li role="separator" class="divider"></li>
+            <li><a href='<%= LOGIN_URL %>?logout_status=yes'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+        <h1>Submitted Questions</h1>
+
+        <% if(NUMBER_OF_SUBMISSIONS_PENDING > 0) { %> 
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Submitted by</th>
+                        <th>Submitted on</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody id="submission_table_body"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <% } else { %>
+
+        <center>
+            <div class="alert alert-success" role="alert">
+                There are no submissions awaiting review :)
+            </div>
+        </center>
+     <% } %>
+
+
+        <script>
+
+              $.ajax({url: "<%= SUBMISSIONS_API_URL  %>?token=<%= TOKEN  %>",
+                type: 'GET',
+                success: function(data){
+                        console.log(data);
+
+                        data.forEach(function(entry){
+                            $("#submission_table_body").append('<tr><td>' + entry.Question + '</td>'
+                                                                + '<td>' + entry.Submitted_by + '</td>'
+                                                                + '<td>' + entry.Created_on + '</td>'
+                                                                + '<td> <a href="<%= REVIEW_SUBMISSIONS_URL %>/' + entry._id + '?token=<%= TOKEN %>" type="button" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> REVIEW</a> </td>'
+                                                                + '</tr>');
+                        });                       
+                }
+
+              });
+
+        </script>
+
+</body>
+</html>

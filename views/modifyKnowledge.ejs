@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LTS KB | Modify Question</title>
+    <link rel="stylesheet" href="/stylesheets/demo.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/stylesheets/medium-editor.css">
+
+    <script src="/js/medium-editor.js"></script>
+    
+
+
+    <!--<link rel="stylesheet" href="/stylesheets/boxstyles.css">-->
+    <link rel="stylesheet" href="/stylesheets/themes/beagle.css" id="medium-editor-theme">
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+    <!-- Bootstrap Core JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    
+    <!-- bootstrap-dialog CSS -->
+    <link href="/stylesheets/bootstrap-dialog.css" rel="stylesheet">
+
+    <!-- bootstrap-dialog JavaScript -->
+    <script src="/js/bootstrap-dialog.js"></script>
+
+
+    <script src="/js/notify.min.js"></script>
+    
+
+<link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <style>
+
+    .editable{
+        margin-top: 5px;
+        min-height: 200px;
+        width: 100%;
+        cursor: text;
+        border: 1px solid #aaa;
+        background: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .question-field{
+        margin-top: 5px;
+        width: 100%;
+        cursor: text;
+        border: 1px solid #aaa;
+        background: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+    }
+
+    body{
+        
+        font-size: 17px;
+        background-color: #FFF;
+        
+        font-family: 'Lato';
+    }
+    
+
+ 
+    .input-field:focus + button {
+        z-index: 3;   
+        
+    }
+
+    
+    
+    .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+    ::-webkit-input-placeholder {
+    font-style: italic;
+    color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    
+    }
+    :-moz-placeholder {
+    font-style: italic;  
+     color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+    ::-moz-placeholder {
+    font-style: italic;  
+     color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+    :-ms-input-placeholder {
+    font-style: italic; 
+     color: #333333;
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+
+    .dropdown-menu > .disabled{
+    cursor: not-allowed; 
+    }
+
+    /* The real magic ;) */
+    .dropdown-menu > .disabled > a{
+    pointer-events: none;
+    }
+
+    input[type="text"] {
+        display: block;
+        margin: 0;
+        width: 100%;
+        font-family: sans-serif;
+        font-size: 18px;
+        appearance: none;
+        box-shadow: none;
+        border-radius: none;
+    }
+    input[type="text"]:focus {
+        outline: none;
+    }
+    .style-1 {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+.style-1:focus,
+.style-1.focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+/*buttons*/
+.action-button {
+    width: 48%;
+    /*background: rgb(23 , 70 , 100);*/
+    background: #27AE60;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px .5%;
+}
+
+.green-button {
+    color: white;
+    background-color: #27AE60;
+}
+
+.green-button:hover, .green-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+
+.red-button {
+    color: white;
+    background-color: #e44c4c;
+}
+
+.red-button:hover, .red-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #e44c4c;
+}
+
+.btn-default {
+    background-color:#428bca;
+    color: #FFF;
+ 
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    color: #ffffff;
+    background-color: #27AE60;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <script>
+
+        var current_question = $('<textarea />').html("<%= KNOWLEDGE_ARTICLE_QUESTION %>").text().trim();
+        var current_answer = $('<textarea />').html("<%= KNOWLEDGE_ARTICLE_ANSWER %>").text().trim();
+        var current_RT_reference = $('<textarea />').html("<%= KNOWLEDGE_ARTICLE_RT_REFERENCE %>").text().trim();
+        var current_category = ("<%= KNOWLEDGE_ARTICLE_CATEGORY %>").trim();
+   
+
+        console.log(current_category);
+        //on document ready, populate with relevant data
+        $(document).ready(function() {  
+
+            var categories = "<%= QUESTION_CATEGORIES %>";
+            //names
+            var categories_array = categories.split(";");
+        
+        
+            for (var i = 0, len = categories_array.length; i < len; i++) {
+                //name
+                var category_name = categories_array[i].trim();                
+                $('#category-dropdown').append("<option value='"+category_name+"'>"+category_name+"</option>");
+        
+            }
+
+
+            editor.setContent(current_answer);
+            $('#category-dropdown').val(current_category);
+            $('#question-field').val(current_question);
+            $('#rt-field').val(current_RT_reference);
+
+            //$('.medium-editor-toolbar-anchor-target').prop('checked', true);
+
+            
+            //$('.medium-editor-toolbar-anchor-target').change( function() {
+                $('.medium-editor-toolbar-anchor-target')[0].checked = true;
+            //});
+            
+
+        });
+
+    </script>
+
+    <!--
+    <div class="top-bar">
+        Theme:
+        <select id="sel-themes">
+            <option value="themes/default" selected>default</option>
+            <option value="themes/roman">roman</option>
+            <option value="themes/mani">mani</option>
+            <option value="themes/flat">flat</option>
+            <option value="themes/bootstrap">bootstrap</option>
+            <option value="themes/tim">tim</option>
+            <option value="themes/beagle">beagle</option>
+        </select>
+    </div> -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a style="font-size: 30px;" class="navbar-brand" href="<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>">LTS Knowledge Base</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="#">Link</a></li>-->
+        
+ 
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class='fa fa-user'></i> <%= FIRST_NAME %>  <%= LAST_NAME %><b class='caret'></b></a>
+          <ul class="dropdown-menu">
+            <!--<li><a href='logout.php'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>-->            
+            <% if (USER_TYPE === "a" || USER_TYPE === "su") {%>
+            <li><a href="<%= ADD_USERS_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-users'></i> Add Users</a></li>
+            <% } %>
+            <li><a href="<%= SUBMIT_KNOWLEDGE_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-pencil-square-o'></i> Submit Question</a></li>
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <li role="separator" class="divider"></li>
+            <li><a href='<%= LOGIN_URL %>?logout_status=yes'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+        <h1>Modify Question</h1>
+        <!--
+        <p>QUESTION</p>
+        <div class="editable" id="answer-field" contenteditable="true" role="textbox"> </div>
+        -->
+            <div style="margin-top: 20px; margin-bottom: 20px;" class="input-group col-md-12 col-lg-12 col-sm-12 col-xs-12">
+               <b>Category</b>
+                <select style="width: 100%; margin-bottom: 20px; margin-top: 5px" class="style-1" id="category-dropdown" name="category-dropdown" required >
+                    <option value="" style="color: graytext;" selected>Choose the category tag</option>
+                </select>
+
+                <b>Question</b>
+                <input style="margin-top: 5px; margin-bottom: 20px;" id="question-field" name="question-field" type="text" class="input-field  question-field style-1" placeholder="Type your question here"/>
+
+                <b>RT Reference #</b>
+                <input style="margin-top: 5px" id="rt-field" name="rt-field" type="text" class="input-field  rt-field style-1" placeholder="Enter an RT ticket number       [OPTIONAL]"/>
+
+            </div>
+            <div>
+                <b style="margin-bottom: 5px">Answer</b>
+                <div style="margin-top: 5px; margin-bottom: 40px;" class="editable style-1 col-md-12 col-lg-12 col-sm-12 col-xs-12" id="answer-field" name="answer-field"> </div>
+            </div>
+            <center>
+                <div>
+                    <input onclick="verifyUserInputAndSend();" type="button" id="submit-question" name="submit-question" class="action-button green-button" value="Update Question">
+                    <input onclick="verifyUserInputAndCancel();"style="background-color: #e44c4c;" type="button" id="cancel-submission" name="cancel-submission" class="action-button red-button" value="Cancel Changes"/>  
+                </div>
+            </center>
+
+    </div>
+
+    <script>
+      BootstrapDialog.alertSubmissionResponse = function(message, callback) {
+            new BootstrapDialog({
+                title: 'Submission Status',
+                message: message,
+                data: {
+                    'callback': callback
+                },
+                closable: false,
+                buttons: [{
+                        label: 'OK',
+                        //cssClass: 'action-button green-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                            dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+
+        BootstrapDialog.confirmCancel = function(message, callback) {
+            new BootstrapDialog({
+                title: 'Cancel Changes',
+                type:  BootstrapDialog.TYPE_DANGER,
+                message: message,
+                closable: false,
+                data: {
+                    'callback': callback
+                },
+                buttons: [{
+                        label: 'Do not Cancel',
+                        cssClass: 'red-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                            dialog.close();
+                        }
+                    }, {
+                        label: 'Cancel the Changes',
+                        cssClass: 'green-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                            dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+
+        BootstrapDialog.confirmUpdate = function(message, callback) {
+            new BootstrapDialog({
+                title: 'Update Question',
+                message: message,
+                closable: false,
+                data: {
+                    'callback': callback
+                },
+                buttons: [{
+                        label: 'Cancel the Changes',
+                        cssClass: 'red-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                            dialog.close();
+                        }
+                    }, {
+                       // icon: 'glyphicon glyphicon-send',
+                        label: 'Update Question',
+                        cssClass: 'green-button',
+                        label: 'Send update request',
+                //cssClass: 'btn-primary',
+                        autospin: true,
+
+                        action: function(dialog) {      
+                              
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+
+                             //dialogRef.setClosable(false);
+                            dialog.enableButtons(false);
+                            dialog.setClosable(false);
+                            dialog.setTitle('Updating Question');
+                            dialog.getModalBody().html('Updating the question');
+                           
+                           
+                            //dialog.setTitle('Message 1');
+
+
+                            //dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+
+    </script>
+    
+    
+    
+    
+
+
+    
+    <script>
+
+
+
+
+/*        window.onbeforeunload = function() {
+    return "You're about to end your session, are you sure?";
+}*/
+
+        var editor = new MediumEditor('#answer-field', {
+            buttonLabels: 'fontawesome',
+            toolbar: {
+                buttons: ['bold', 'italic', 'anchor', 'orderedlist', 'unorderedlist'/*, 'indent', 'outdent'*/],
+                //static: true,
+                //sticky: true
+               // diffLeft: 25,
+               // diffTop: 10,
+            },
+            placeholder: {
+                text: 'Type your answer here'
+            },
+            targetBlank: true
+        }).subscribe("editableClick", function(e){if (e.target.href) {window.open(e.target.href)}});//binded event
+        
+        /*,
+
+        
+        
+
+        cssLink = document.getElementById('medium-editor-theme');
+        document.getElementById('sel-themes').addEventListener('change', function () {
+            cssLink.href = '/stylesheets/' + this.value + '.css';
+        });
+        */
+        $("#answer-field").click(function() {
+            $("#answer-field").notify("Pssst....highlight some text to see editor options", "info");
+        });
+
+
+
+        function verifyUserInputAndSend() {
+            
+            var isError = false;
+
+            if($('#category-dropdown').val().trim() === ""){
+                console.log('invalid dropdown value');
+                //set off error flag
+                $("#category-dropdown").notify("Please select a value", { position:"top right" });
+                isError = true;
+            }
+
+            if($('#question-field').val().trim() === ""){
+                console.log('invalid question value');
+                $("#question-field").notify("Please enter a question", { position:"top right" });
+                //set off error flag
+                isError = true;
+            }
+
+            if($('#answer-field').text().trim() === ""){
+                console.log('invalid answer value');
+                $("#answer-field").notify("Please enter an answer", { position:"top right" });
+                //set off error flag
+                isError = true;
+            }
+
+            BootstrapDialog.confirmUpdate('Are you sure you want to update the question?', function (result) {
+                    if(result)
+                    {
+
+                    if(!isError) {
+                        var data = {};
+                        data._id = "<%= KNOWLEDGE_ARTICLE_ID %>";
+                        data.Category = $('#category-dropdown').val().trim();
+                        data.Question = $('#question-field').val().trim();
+                        data.Answer = $('#answer-field').html().trim();
+                        data.RT_reference = $('#rt-field').val().trim();
+                        data.Status = 'Approved';
+                        data.old_Question = current_question;
+                        data.old_Answer = current_answer;
+                        
+                        $.ajax({
+                            type: 'POST',
+                            data: JSON.stringify(data),
+                            contentType: 'application/json',
+                            url: '<%= API_SUBMIT_DOCUMENT_URL %>?token=<%= TOKEN %>',						
+                            success: function(data) {
+                                console.log(data.success);
+                                console.log(data);
+                                //ajax to update articles??
+                                BootstrapDialog.closeAll();
+                                if(data.success){
+                                    BootstrapDialog.alertSubmissionResponse('The question has been updated! :)', function() {
+                                        location.replace("<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>");
+                                    });
+                                }
+                                
+                            }
+                        });
+
+                    }
+
+                }
+            }); 
+
+                  /*  Question: req.body.Question,
+                    Category: req.body.Category,
+                    RT_reference: req.body.RT_reference,
+                    Answer: req.body.Answer,
+                    Status: req.body.Status,
+
+                */
+
+        }
+
+
+        function verifyUserInputAndCancel() {
+            if($('#question-field').val().trim() !== "" || $('#answer-field').text().trim() !== ""){
+                BootstrapDialog.confirmCancel('Are you sure you want to cancel the submission?', function (result) {
+                    if(result)
+                    {
+                        location.replace("<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>");
+                    }
+                });                
+            }
+            else 
+            {
+                location.replace("<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>");
+            }
+        }
+
+        function sendQuestion() {
+        var data = {};
+        data.category = $('#category-dropdown').val().trim();
+        data.question = $('#question-field').val().trim();
+        data.answer = $('#answer-field').html().trim();
+        
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            url: '/api/test',						
+            success: function(data) {
+                console.log('success');
+                console.log(JSON.stringify(data));
+            }
+        });
+
+        };
+
+          /*       BootstrapDialog.alertReserveResponse = function(message, callback) {
+            new BootstrapDialog({
+                title: 'Requested Reservation Informration',
+                message: message,
+                data: {
+                    'callback': callback
+                },
+                closable: false,
+                buttons: [{
+                        label: 'OK',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                            dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+
+
+
+                      BootstrapDialog.confirmUBER("Press 'Cancel' if this booking is to drive for UBER becuase appointments for UBER require to be booked at least 24 hours in advance.", function(result){
+                        if(result){
+                             BootstrapDialog.confirmReservation("Are you sure you want to make the appointment for: " + this.shiftDate + " for the " + shiftTime + "?", function(result2){
+                            if(result2){
+                                 $.ajax({
+                            
+                             url: 'https://shahbaz.poolcar.com/services/erive.asmx/CreateBooking',
+                             type: "POST",
+                             data: data_string,
+                             contentType: "application/json; charset=utf-8",
+                             dataType: 'json',
+                             success: function (data) {
+                                
+                                BootstrapDialog.alertReserveResponse(data.d.Message);
+                                
+                                
+                                console.log(data.d);
+
+                                   $table.bootstrapTable('remove', {
+                                    field: 'id',
+                                    values: [thisBooking.id]
+                                });
+
+                             }
+                             });
+                                
+                            
+                            }
+                            });
+                            
+                        }
+                      });
+
+
+*/
+
+    </script>
+</body>
+</html>

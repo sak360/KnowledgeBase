@@ -1,0 +1,422 @@
+<html>
+    <head>
+        <title>LTS KB - Add Users</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+        
+        <!-- Bootstrap Core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        
+        <!-- Bootstrap Core JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+        
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+        <!-- bootstrap-dialog CSS -->
+        <link href="/stylesheets/bootstrap-dialog.css" rel="stylesheet">
+
+        <!-- bootstrap-dialog JavaScript -->
+        <script src="/js/bootstrap-dialog.js"></script>
+
+
+        <script src="/js/notify.min.js"></script>
+    
+    </head>
+    <body>
+        
+        
+        
+    <style>
+
+    .editable{
+        margin-top: 5px;
+        min-height: 200px;
+        width: 100%;
+        cursor: text;
+        border: 1px solid #aaa;
+        background: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .question-field{
+        margin-top: 5px;
+        width: 100%;
+        cursor: text;
+        border: 1px solid #aaa;
+        background: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+    }
+
+    body{
+        
+        font-size: 17px;
+        background-color: #FFF;
+        
+        font-family: 'Lato';
+    }
+    
+
+ 
+    .input-field:focus + button {
+        z-index: 3;   
+        
+    }
+
+    
+    
+    .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+        color: #ffffff;
+        background-color: #007fff;
+    }
+
+    ::-webkit-input-placeholder {
+    font-style: italic;
+    /*color: #333333;*/
+    font-family: 'Lato';
+    font-size: 17px;
+    
+    }
+    :-moz-placeholder {
+    font-style: italic;  
+    /*color: #333333;*/
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+    ::-moz-placeholder {
+    font-style: italic;  
+    /*color: #333333;*/
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+    :-ms-input-placeholder {
+    font-style: italic; 
+    /*color: #333333;*/
+    font-family: 'Lato';
+    font-size: 17px;
+    }
+
+    .dropdown-menu > .disabled{
+    cursor: not-allowed; 
+    }
+
+    /* The real magic ;) */
+    .dropdown-menu > .disabled > a{
+    pointer-events: none;
+    }
+
+    input[type="text"] {
+        display: block;
+        margin: 0;
+        width: 100%;
+        font-family: sans-serif;
+        font-size: 18px;
+        appearance: none;
+        box-shadow: none;
+        border-radius: none;
+    }
+    input[type="text"]:focus {
+        outline: none;
+    }
+    .style-1 {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+.style-1:focus,
+.style-1.focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+/*buttons*/
+.action-button {
+    width: 100%;
+    /*background: rgb(23 , 70 , 100);*/
+    background: #27AE60;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    /*margin: 10px .5%;*/
+    margin-top: 20px;
+}
+
+.green-button {
+    color: white;
+    background-color: #27AE60;
+}
+
+.green-button:hover, .green-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+
+.red-button {
+    color: white;
+    background-color: #e44c4c;
+}
+
+.red-button:hover, .red-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #e44c4c;
+}
+
+.btn-default {
+    background-color:#428bca;
+    color: #FFF;
+ 
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    color: #ffffff;
+    background-color: #27AE60;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+    
+    </style>
+        
+        <script>
+            
+            
+        </script>
+        
+
+        
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a style="font-size: 30px;" class="navbar-brand" href="<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>">LTS Knowledge Base</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="#">Link</a></li>-->
+        
+ 
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class='fa fa-user'></i> <%= FIRST_NAME %>  <%= LAST_NAME %><b class='caret'></b></a>
+          <ul class="dropdown-menu">
+            <!--<li><a href='logout.php'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>-->            
+            <li class='disabled'><a href="#" class='disabled' ><i class='fa fa-fw fa-users'></i> Add Users</a></li>
+            <li><a href="<%= SUBMISSIONS_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-book'></i> Review Submissions <span class="badge"><%= NUMBER_OF_SUBMISSIONS_PENDING  %></span></a></li>
+            <li><a href="<%= SUBMIT_KNOWLEDGE_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-pencil-square-o'></i> Submit Question</a></li>
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <li role="separator" class="divider"></li>
+            <li><a href='<%= LOGIN_URL %>?logout_status=yes'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>        
+
+    <div class="container">
+        <center>
+        <h1>Add a User</h1>
+        </center>
+        <!--
+        <p>QUESTION</p>
+        <div class="editable" id="answer-field" contenteditable="true" role="textbox"> </div>
+        -->
+            <div style="margin-top: 20px; margin-bottom: 20px;" class="input-group col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+                <b>First Name</b>
+                <input style="margin-top: 5px; margin-bottom: 20px;" id="first-name-field" name="first-name-field" type="text" class="input-field  question-field style-1" placeholder="Enter first name here"/>
+
+                <b>Last Name</b>
+                <input style="margin-top: 5px; margin-bottom: 20px;" id="last-name-field" name="last-name-field" type="text" class="input-field  rt-field style-1" placeholder="Enter last name here"/>
+
+                <b>Email</b>
+                <input style="margin-top: 5px" id="email-field" name="email-field" type="text" class="input-field  rt-field style-1" placeholder="Enter user email here"/>
+
+                <input onclick="verifyInputAndCreateUser();" type="button" id="submit-user" name="submit-user" class="action-button green-button" value="Create User">
+                <center>
+                <img id="img_spinner" src="/images/spinner.gif" alt="Loading" style="display: none; margin-top: 10px; margin-right: 22.5%; margin-left: 22.5%"/>
+                </center>
+            </div>
+
+      
+
+    </div>
+   <script>
+
+
+
+        BootstrapDialog.alertUserStatus = function(message, callback) {
+            new BootstrapDialog({
+                title: 'User Status',
+                type:  BootstrapDialog.TYPE_INFO,
+                message: message,
+                data: {
+                    'callback': callback
+                },
+                closable: false,
+                buttons: [{
+                        label: 'OK',
+                        //cssClass: 'action-button green-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                            dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+
+        BootstrapDialog.confirmAddAnotherUser = function(message, callback) {
+            new BootstrapDialog({
+                title: 'Add another User?',
+                type:  BootstrapDialog.TYPE_PRIMARY,
+                message: message,
+                closable: false,
+                data: {
+                    'callback': callback
+                },
+                buttons: [{
+                        label: 'No',
+                        cssClass: 'red-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                            dialog.close();
+                        }
+                    }, {
+                        label: 'Yes',
+                        cssClass: 'green-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                            dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+
+              //document.getElementById('img_spinner').style.display ="inline";
+//                        document.getElementById('resend_code_button').style.display ="none";
+
+
+        function validateEmail($email) {
+            var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            return emailReg.test( $email );
+        }
+
+
+       function verifyInputAndCreateUser() {
+
+            document.getElementById('img_spinner').style.display ="inline";
+            document.getElementById('submit-user').style.display ="none";
+
+            var isError = false;
+
+            if($('#first-name-field').val().trim() === ""){
+                console.log('invalid first name value');
+                $("#first-name-field").notify("Please enter a first name", { position:"top right" });
+                //set off error flag
+                isError = true;
+            }
+
+
+            if($('#last-name-field').val().trim() === ""){
+                console.log('invalid last name value');
+                $("#last-name-field").notify("Please enter a last name", { position:"top right" });
+                //set off error flag
+                isError = true;
+            }
+
+
+            if(!validateEmail($('#email-field').val()) || $('#email-field').val().trim() === "")
+            {
+                $("#email-field").notify("Please enter a valid email", { position:"top right" });
+                //set off error flag
+                isError = true;     
+            }  
+
+            if(!isError) {
+
+                var data = {};
+                data.first_name = $('#first-name-field').val().trim();
+                data.last_name = $('#last-name-field').val().trim();
+                data.email = $('#email-field').val().trim();
+
+                
+               
+                
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    url: '<%= ADD_USERS_URL %>?token=<%= TOKEN %>',						
+                    success: function(data) {
+
+                        //BootstrapDialog.alertUserStatus(data.message);
+                        BootstrapDialog.alertUserStatus(data.message, function() {
+
+                            document.getElementById('img_spinner').style.display ="none";
+                            document.getElementById('submit-user').style.display ="inline";
+
+                            if(data.success){
+                                BootstrapDialog.confirmAddAnotherUser('Do you want to add another user?', function(result) {
+                                    if(result){
+                                         location.reload();
+                                    }
+                                    else
+                                    {
+                                        location.assign('<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>');
+                                    }
+                                   
+                                });
+                            }
+
+                        });
+                        
+
+
+                        
+                        
+                    }
+                });
+                
+
+
+       }
+       else
+        {
+            document.getElementById('img_spinner').style.display ="none";
+            document.getElementById('submit-user').style.display ="inline";
+        }
+       }
+
+   </script>     
+
+        
+
+    </body>
+</html>

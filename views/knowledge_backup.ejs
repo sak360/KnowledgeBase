@@ -1,0 +1,497 @@
+<html>
+    <head>
+        <title>LTS Knowledge Base</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="/js/lunr.js"></script>
+        <script src="/js/card-depth.js"></script>
+        
+        
+    
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+        
+        <!-- Bootstrap Core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        
+        <!-- Bootstrap Core JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+        
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    
+    </head>
+    <body>
+        
+        
+        
+    <style>
+    body{
+        
+        font-size: 17px;
+        background-color: #FFF;
+        
+        font-family: 'Lato';
+    }
+    
+
+    
+    #custom-search-input {
+        margin:0;
+        margin-top: 10px;
+        padding: 0;
+    }
+ 
+    #custom-search-input .search-field {
+        padding-right: 3px;
+        padding-right: 4px \9;
+        padding-left: 3px;
+        padding-left: 4px \9;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+ 
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+ 
+    #custom-search-input button {
+        border: 0;
+        background: none;
+        /** belows styles are working good */
+        padding: 2px 5px;
+        margin-top: 2px;
+        position: relative;
+        left: -28px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        color:#D9230F;
+    }
+ 
+    .search-field:focus + button {
+        z-index: 3;   
+        
+    }
+
+    
+    
+/*    .top-result {
+     white-space: -moz-pre-wrap !important;   Mozilla, since 1999 
+     white-space: -pre-wrap;       Opera 4-6 
+     white-space: -o-pre-wrap;     Opera 7 
+     white-space: pre-wrap;        css-3 
+     word-wrap: break-word;        Internet Explorer 5.5+ 
+     word-break: break-all;
+     white-space: normal;
+}*/
+    
+    /*.search-field:hover {cursor: hand; cursor: pointer; }*/
+
+    
+    
+    /*.result:hover {cursor: pointer; cursor: hand;}*/
+/*    .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #ffffff;
+    background-color: #D4E0EC;
+}
+    
+    .dropdown-menu
+{
+    background-color: yellow;
+    background-color: transparent;
+}
+
+.dropdown-menu>li>a:hover {
+  color: yellow;
+  text-decoration: none;
+  background-color: yellow;
+    
+}
+    */
+    
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+:-moz-placeholder {
+   font-style: italic;  
+}
+::-moz-placeholder {
+   font-style: italic;  
+}
+:-ms-input-placeholder {  
+   font-style: italic; 
+}
+
+.dropdown-menu > .disabled{
+ cursor: not-allowed; 
+}
+
+/* The real magic ;) */
+.dropdown-menu > .disabled > a{
+ pointer-events: none;
+}
+    
+    </style>
+        
+        <script>
+            
+       
+            
+
+//  {
+//    "timestamp": "3/17/2016 12:59:44",
+//    "username": "jscoul2@uic.edu",
+//    "question": "How can I view my grades in my course site?",
+//    "question_tag": "BB - GENERAL",
+//    "referene_tickets": 1141827
+//  },
+        
+    
+    var store = {};
+    var entries;
+    var data;
+    
+    
+    var date1;
+    var date2;
+    
+    
+    var index = lunr(function(){
+    // boost increases the importance of words found in this field
+    this.field('Question', 10);
+    this.field('Category', 5);
+    this.field('Answer');
+//                this.field('content');
+    // the id
+    this.ref('_id');
+});
+
+   
+    
+//        $.getJSON("answer_test.json", function(data) {
+          
+        $.ajax({url: "<%= KNOWLEDGE_URL  %>?token=<%= TOKEN  %>",
+                type: 'GET',
+                success: function(data){
+        //$("#div1").html(result);
+    
+             // /api/knowledgeArticles/mysql
+                
+                
+                
+                
+                console.log(data);
+                
+                
+                date1 = new Date();
+                
+
+                entries = data;
+        
+//            var index = lunr(function(){
+//                // boost increases the importance of words found in this field
+//                this.field('question', {boost: 10});
+//                this.field('question_tag');
+////                this.field('content');
+//                // the id
+//                this.ref('question');
+//            });
+
+            // this is a store with some document meta data to display
+            // in the search results.
+//            var store = {};
+            
+            entries.forEach(function(entry){
+                index.add({
+                    _id: entry._id,
+                    Question: entry.Question,
+                    Category: entry.Category,
+                    Answer: entry.Answer.replace(/<\/?[^>]+(>|$)/g, " ")
+                    // hacky way to strip html, you should do better than that ;)
+//                    content: cheerio.load(entry.content.replace(/<[^>]*>/g, ' ')).root().text()
+                });
+                store[entry._id] = {_id: entry._id, Question: entry.Question, Category: entry.Category, Answer: entry.Answer};
+        });
+            
+            
+            date2 = new Date();
+            var diff = date2 - date1; //milliseconds interval
+            
+            console.log('Time to index (in ms): ' + diff);
+            
+            
+            
+//            fs.writeFileSync('searchIndex.json', JSON.stringify({
+//                index: index.toJSON(),
+//                store: store
+//            }));
+
+            //console.log(index);
+            
+            //console.log(JSON.stringify(index));
+            
+            data = JSON.stringify({
+                index: index.toJSON(),
+                store: store});
+            
+            //console.log(index);
+            
+            //console.log(JSON.stringify(index));
+            
+            //console.log(index.toJSON());
+//            console.log(store);
+//            console.log(data);
+            
+             $('.search-field').keyup(function() {
+                    var query = $(this).val();
+                    if(query === ''){
+                        jQuery('.search-results').empty();
+                        jQuery('.top-result').empty();
+                        $('.number_of_results').empty();
+                        
+                        
+                        $('.top-result').css('min-height', '0px');
+                        $('.top-result').css( "background-color", "white" );
+                    }
+                    else {
+                        // perform search
+                        var results = index.search(query);
+                        
+                        
+                        
+                        console.log(results.length);
+                        
+                        if(results.length !== 0)
+                        {
+//                        <p>No results found</strong></p>
+                            console.log(results[0].ref);
+                            $('#number_of_results').html('<p><strong>Results: <b>' + results.length + '</b></strong></p>');
+
+    //                        data.then(function(data) {
+                                $('.search-results').empty().append(
+                                    results.length ?
+                                    results.map(function(result){
+                                        var el = $('<div style="cursor:pointer; padding-top: 14px; padding-bottom: 7px; padding-right: 5px; padding-left: 10px; border-radius: 20px 0px 0px 20px; vertical-align: middle;" onclick="resultClick(article_'+store[result.ref]._id+ ');" class="result" id="article_'+store[result.ref]._id+ '">')
+                                            .append($('<p>')
+    //                                            .attr('question', result.quesiton)
+                                                .html('' + store[result.ref].Question + '<br></p></div>')
+    //                                            .html('<b>' + store[result.ref].Question + '</b>    [' + store[result.ref].Category + ']</a><br>' + store[result.ref].Answer + '</p></div>')
+                                            );
+//                                        if(store[result.ref]){
+//                                            el.after($('<p>').text(store[result.ref].Answer) + '</p></div>');
+//                                        }
+                                        return el;
+                                    }) : $('<p><strong>No results found</strong></p>')
+                                );
+
+                                 $('.top-result').empty().html('<div>' + store[results[0].ref].Answer + '<br></div><% if (USER_TYPE === "a" || USER_TYPE === "su") {%> <div style="margin-top: 25px; "><a href="<%= MODIFY_KNOWLEDGE_URL %>?id=' + store[results[0].ref]._id + '&token=<%= TOKEN %>"                                                                                 type="button" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> EDIT</a></div><% } %>');
+                                 $('.top-result').css( "background-color", "#D4E0EC" );
+                                 
+                                 
+                                 var top_result_highlight = 'article_' + store[results[0].ref]._id;
+                                 $('#'+top_result_highlight).css( "background-color", "#D4E0EC" );
+                                 
+                                 var divHeight = $('.search-results').height(); 
+                                $('.top-result').css('min-height', divHeight+'px');
+                            
+                        }
+                        else
+                        {
+                            console.log('should be empty');
+                            
+                            $('.search-results').empty().append($('<p><strong>No results found</strong></p>'));
+                            $('.top-result').empty();
+                            
+                            $('.number_of_results').empty();
+                            
+                            $('.top-result').css('min-height', '0px');
+                            $('.top-result').css( "background-color", "white" );
+                        }
+                    
+                    }
+                }); 
+             
+       // });
+       
+       }});
+        
+//        $(document).ready(function() {
+        $( ".result" ).click(function() {
+            console.log( "Handler for .click() called." );
+        });
+//    });
+
+        $(document).ready(function(){
+            $(".result").click(function(){
+                alert("The text has been ddddddddddddd.");
+            });
+        });
+        
+        
+        function resultClick(bruh)
+        {
+//            alert('what up');\\
+            
+            
+            console.log(bruh);
+            
+            $( ".result" ).css( "background-color", "white" );
+            $(bruh).css( "background-color", "#D4E0EC" );
+            
+            console.log(jQuery(bruh).attr("id"));
+            
+            var res = (jQuery(bruh).attr("id")).split("_");
+            
+            
+            //EDIT BUTTON WILL ONLY SHOW UP FOR ADMINS
+            $('.top-result').empty().html('<div>' + store[res[1]].Answer 
+            + '<br></div><% if (USER_TYPE === "a" || USER_TYPE === "su") {%> <div style="margin-top: 25px;"><a href="<%= MODIFY_KNOWLEDGE_URL %>?id=' + res[1] + '&token=<%= TOKEN %>" type="button" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> EDIT</a></div><% } %>');
+//            window.scrollTo(0, $(".top-result").offset().top);
+
+            $('html, body').animate({scrollTop: $('.top-result').position().top },
+                500
+            );
+        }
+
+            
+        </script>
+        
+        <!--<section data-index="https://29a.ch/searchIndex.json" class="search">-->
+       
+        <!--<input type="search" autofocus="" class="search-field">&nbsp;<i class="icon-search"></i>-->
+        <!--<nav style="background-color: rgba(213,31,53,0.44); border-color: rgba(213,31,53,0.44)" class="navbar navbar-default">-->
+        
+<!--        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-brand-centered">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    
+                    <div style="color: white; font-size: 55px; "  class="container">
+                        <div style="color: white; font-size: 48px;float: left; margin-left: 0;" class='container-fluid navbar-brand navbar-brand-left'>
+                             LTS
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </nav>-->
+        
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a style="font-size: 30px;" class="navbar-brand" href="#">LTS Knowledge Base</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="#">Link</a></li>-->
+        
+ 
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class='fa fa-user'></i> <%= FIRST_NAME %>  <%= LAST_NAME %><b class='caret'></b></a>
+          <ul class="dropdown-menu">        
+            <!--<li class='disabled'><a href="#" class='disabled' ><i class='fa fa-fw fa-users'></i> Add Users</a></li>ADD_USERS_URL-->
+            <% if (USER_TYPE === "a" || USER_TYPE === "su") {%>
+            <li><a href="<%= ADD_USERS_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-users'></i> Add Users</a></li>
+            <li><a href="<%= SUBMISSIONS_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-book'></i> Review Submissions <span class="badge"><%= NUMBER_OF_SUBMISSIONS_PENDING  %></span></a></li>
+          
+            <% } %>
+            <li><a href="<%= SUBMIT_KNOWLEDGE_URL %>?token=<%= TOKEN %>" ><i class='fa fa-fw fa-pencil-square-o'></i> Sumbit Question</a></li>
+            <!--<li><a href="#">Another action</a></li>-->
+            <!--<li><a href="#">Something else here</a></li>-->
+            <li role="separator" class="divider"></li>
+            <li><a href='<%= LOGIN_URL %>?logout_status=yes'><i class='fa fa-fw fa-power-off'></i> Log Out</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>        
+        
+        <div class="container">
+        <div style="margin-top: 0px; " class="row">
+            <center>
+                <h3>Learning Technologies Knowledge Base</h3>
+                <!--<h5><i>Start typing to search. Search is responsive.</i></h5>-->
+            </center>
+        </div><!-- /.row -->
+        
+       
+	<div class="row">
+           <!--<div id="custom-search-input">-->
+        <center>
+            <div class="input-group col-md-12 col-lg-12 col-sm-12 col-xs-10">
+                <input id="search-field" name="search-field" type="text" class="search-field form-control" placeholder="Start typing to search..." style='border-top-left-radius: 1em; border-bottom-left-radius: 1em; border-bottom-right-radius: 1em; border-top-right-radius: 1em;'/>
+<!--                <span class="input-group-btn">
+                            <button class="btn btn-danger" type="button">
+                        <span class=" glyphicon glyphicon-search"></span>
+                    </button>
+                </span>-->
+                <div class="number_of_results" id='number_of_results'></div>
+            </div>
+        </center>
+        
+                <!--</center>-->
+            <!--</div>-->
+	<!--</div>-->
+        
+        
+        
+        
+        
+<!--        <form accept-charset="UTF-8" action="/search" class="search" method="get">
+          <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+              <input placeholder="What can we help you with? Search for a topic or question…" tabindex="1" type="search" class="tt-input" spellcheck="false" dir="auto" style="position: relative; vertical-align: top;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 300; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: optimizeLegibility; text-transform: none;"></pre><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;"><div class="tt-dataset-0"></div></span></span>
+        </form>-->
+        
+        
+        
+        
+        
+         <div class="row col-lg-12">
+             <!--<center>-->
+            <div id="search-results" class="search-results col-lg-6"></div>
+            
+            
+            <div style="padding-top: 14px; padding-bottom: 7px; border-radius: 0px 20px 20px 0px; word-wrap: break-word;" class="top-result col-lg-6"></div>
+            
+            <div class="card">
+                <p>I am content!</p>
+            </div>
+
+            <!--</center>-->
+        </div>
+        </div>
+        </div>
+        <!--</section>-->
+        
+        <!--<input type="search" autofocus="" class="search-field">-->
+        <!--<div>TODO write content</div>-->
+    </body>
+</html>
