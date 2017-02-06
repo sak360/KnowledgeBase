@@ -19,6 +19,7 @@ As of now, there are 3 levels of access to the KnowledgeBase:
 
 ##Setup
 In order to use use the application to its fullest, the following steps must be taken:
+- Update _app.js_ with the correct port on which the node application will attach a listener to
 - Add smtp credetials to create a nodemailer transporter to:
   - _models/sendUserInitiationTemplate.js_ 
   - _models/sendPasswordResetTemplate.js_
@@ -32,4 +33,8 @@ Once the above steps are complete, the Knowledge Base is ready to be used.
 
 ##Future Additions and To Dos:
 To continually improve the application, the following items are on the list:
+- Web interface to allow users to fully configure the type of fields ('Title', 'Category', 'Subcategory', 'Tags', etc.) that can be used to index and tag documents, how the index is built, and how the documents are scored to match user-inputted queries (are specific fields weighted more?). 
+- Ability to allow bulk document uploading so initial setups are fast
+- Dynamically built document tags (Machine Learning application)
+- Dynamically built cache of most relevant (average recency of use vs. average frequency of use) articles to transfer on load
 
