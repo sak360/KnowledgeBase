@@ -32,7 +32,7 @@ In order to use use the application to its fullest, the following steps must be 
 Once the above steps are complete, the Knowledge Base is ready to be used.
 
 ##Future Additions and To Dos:
-To continually improve the application, the following items are on the list:
+To continually improve the application, the following non-exhaustive list of items are on the list:
 - Web interface to allow users to fully configure the type of fields ('Title', 'Category', 'Subcategory', 'Tags', etc.) that can be used to index and tag documents, how the index is built, and how the documents are scored to match user-inputted queries (are specific fields weighted more?). 
 - Ability to allow bulk document uploading so initial setups are fast
 - Dynamically built document tags (Machine Learning application)
