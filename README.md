@@ -17,6 +17,17 @@ As of now, there are 3 levels of access to the KnowledgeBase:
 - __Admin:__ In addition to _User_ access, _Admins_ are able to add new users to the knowledge base, update current documents (edit or retire), and approve _User_ submitted doucments.
 - __SuperUser:__ Only a SuperUser may access certain endpoints of the API (non-GUI) with a valid authentication JST. Please refer to the __Routes for API__ section in _controllers/apiController.js_ to see what they are.
 
+##Document Indexing and RetrivL
+Each document is first tokenized, stop words are removed, and then words are stemmed (stemming can be controlled).
+
+Next, each document is passed into the index which contains the universal indexes and stores all the tokens and document lookups.
+
+All query tokens are passed through the same pipeline that document tokens are passed through, so any language processing involved will be run on every query term.
+
+Each query term is expanded, so that the term 'he' might be expanded to 'hello' and 'help' if those terms were already included in the index.
+
+Matching documents are returned as an array of objects, each object contains the matching document ref, as set for this index, and the similarity score for this document against the query. The score computation can also be changed in the controller (GUI version of this in the works).
+
 ##Setup
 In order to use use the application to its fullest, the following steps must be taken:
 - Update _app.js_ with the correct port on which the node application will attach a listener to
