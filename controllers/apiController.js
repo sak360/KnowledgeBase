@@ -23,9 +23,7 @@ var authenticatedApiRouter = express.Router();   //router for authenticated API
 var authenticatedRenderRouter = express.Router();//router for pages to render
 var authenticationRouter = express.Router();//router for authentication (page and api)
 
-//var domainURL = 'http://skhan231.people.uic.edu:8080';//update for base domainURL
-//var domainURL = 'http://localhost';//update for base domainURL
-var domainURL = 'http://ltskb.uic.edu:8005'; //8005
+var domainURL = 'http://ltskb.uic.edu:8005'; //UPDATE WITH BASE DOMAIN URL
 
 var baseURL = '/LTS_KB'
 var loginURL = baseURL + '/auth';
@@ -51,9 +49,6 @@ module.exports = function(app) {
     //captures device information and adds it to the req
     app.use(device.capture());
     
-
-    
-   // var articles;//
 
     /////////////////////////////////////////////////////
     //Pulling startup data from mongoDB
@@ -82,8 +77,6 @@ module.exports = function(app) {
 
     });
  
-
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //ROUTES FOR PAGES THAT WILL BE RENDERED
@@ -195,10 +188,6 @@ module.exports = function(app) {
             }
             else{
 
-                //console.log('send password reset email');
-                //console.log(user);
-                //console.log(req.baseUrl);
-
                 var user_info = {
                                     user_id: user[0].user_id,
                                     email: user[0].email,
@@ -232,10 +221,6 @@ module.exports = function(app) {
     //post API endpoint to find user in DB and update password reset if they exist and are sending a valid token
     authenticationRouter.post(resetPasswordAPI, function(req, res) {
 
-        //console.log('params: ' + JSON.stringify(req.params));
-        //console.log('body: ' + JSON.stringify(req.body));
-        //console.log('query: ' + JSON.stringify(req.query));
-        
         var datetime = moment().format();
 
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -270,8 +255,6 @@ module.exports = function(app) {
 
                     //hash the password before storage
                     var hashed_password = bcrypt.hashSync(req.body.f_input_password);
-                    //console.log(hashed_password);
-                    //console.log(bcrypt.compareSync(req.body.f_input_password, hashed_password)); 
 
                         //update password for user
                         con.query("UPDATE users SET pass='"+ hashed_password + "' WHERE user_id="+ decoded.user_id, function(errOnUpdate, rowsOnUpdate) {
@@ -409,7 +392,7 @@ module.exports = function(app) {
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    //ROUTES FOR THE PAGES BEHING AUTH
+    //ROUTES FOR THE PAGES BEHIND AUTH
     ///////////////////////////////////////////////////////////////////////////////////////////////   
     
     //page displayed on login....this is the KB

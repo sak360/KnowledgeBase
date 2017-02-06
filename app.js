@@ -23,32 +23,8 @@ app.set('superSecret', config.secret); // secret variable
 app.set('question_categories', config.question_categories);
 
 
-
-
-
 mongoose.connect(config.getDbConnectionString());
 setupController(app);
 apiController(app);
 
 app.listen(port);
-
-/*
-var nodemailer = require('nodemailer');
-
-var sendPwdReset = require('./models/sendPasswordResetTemplate')
-
-
-sendPwdReset({
-    to: 'skhan231@uic.edu'
-}, {
-    username: 'Node Mailer',
-    reset: 'https://www.example.com/reset?token=<unique-single-use-token>'
-}, function(err, info){
-    if(err){
-        console.log('Error');
-    }else{
-        console.log('Password reset sent');
-    }
-});
-
-*/

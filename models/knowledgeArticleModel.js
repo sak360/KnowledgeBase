@@ -11,9 +11,7 @@ var knowledgeArticleSchema = new Schema({
     Status: String,
     Last_updated_by: String,
     Submitted_by: String,
-    //Created_on_string: String,
     Created_on: Date,
-    //Last_updated_on_string: String,
     Last_updated_on: Date
 });
 
