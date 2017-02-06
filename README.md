@@ -17,7 +17,7 @@ As of now, there are 3 levels of access to the KnowledgeBase:
 - __Admin:__ In addition to _User_ access, _Admins_ are able to add new users to the knowledge base, update current documents (edit or retire), and approve _User_ submitted doucments.
 - __SuperUser:__ Only a SuperUser may access certain endpoints of the API (non-GUI) with a valid authentication JST. Please refer to the __Routes for API__ section in _controllers/apiController.js_ to see what they are.
 
-##Document Indexing and RetrivL
+##Document Indexing and Retrival
 Each document is first tokenized, stop words are removed, and then words are stemmed (stemming can be controlled).
 
 Next, each document is passed into the index which contains the universal indexes and stores all the tokens and document lookups.
