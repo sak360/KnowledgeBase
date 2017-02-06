@@ -79,6 +79,13 @@
     }
 
     
+    .red-button {
+        color: white;
+        background-color: #e44c4c;
+    }
+
+
+    
     
 /*    .top-result {
      white-space: -moz-pre-wrap !important;   Mozilla, since 1999 
@@ -323,6 +330,8 @@
 
                                  $('.top-result').empty().html('<div>' + store[results[0].ref].Answer + '<br></div><% if (USER_TYPE === "a" || USER_TYPE === "su") {%> <div style="margin-top: 25px; "><a href="<%= MODIFY_KNOWLEDGE_URL %>?id=' + store[results[0].ref]._id + '&token=<%= TOKEN %>"                                                                                 type="button" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> EDIT</a></div><% } %>');
                                  
+                                    //retire button:  <a href="<%= MODIFY_KNOWLEDGE_URL %>?id=' + store[results[0].ref]._id + '&token=<%= TOKEN %>"type="button" class="btn red-button"><i class="fa fa-trash-o" aria-hidden="true"></i> RETIRE</a> 
+
                                 $('.top-result').show();
                                 $('.top-result').css( "background-color", "rgb(234, 233, 236)" );
                                  

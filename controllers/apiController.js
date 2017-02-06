@@ -23,7 +23,10 @@ var authenticatedApiRouter = express.Router();   //router for authenticated API
 var authenticatedRenderRouter = express.Router();//router for pages to render
 var authenticationRouter = express.Router();//router for authentication (page and api)
 
-var domainURL = 'http://skhan231.people.uic.edu:8080';//update for base domainURL
+//var domainURL = 'http://skhan231.people.uic.edu:8080';//update for base domainURL
+//var domainURL = 'http://localhost';//update for base domainURL
+var domainURL = 'http://ltskb.uic.edu:8005'; //8005
+
 var baseURL = '/LTS_KB'
 var loginURL = baseURL + '/auth';
 var knowledgeBaseURL = baseURL + '/knowledge';
@@ -869,6 +872,8 @@ module.exports = function(app) {
 
                 }
 
+                console.log('Updates Article In MongoDB'); 
+
                 //Update the specific article being updated. Saves time by not having to load from the mongo db
                 var current_articles = app.get('articles');
                 var index_of_article = 0;
@@ -879,21 +884,37 @@ module.exports = function(app) {
 
                     if(element._id == req.body._id)
                     {
+                        console.log('FOUND ARTICLE'); 
                         //if article is found, update article_found variable, and update element's value
                         article_found = 'YES';
-
-                        element.Question =  req.body.Question;
-                        element.Category =  req.body.Category;
-                        element.RT_reference = req.body.RT_reference;
-                        element.Answer = req.body.Answer;
-                        element.Status = req.body.Status;
-                        element.Last_updated_by = req.decoded.email;
-                        element.Last_updated_on =  datetime;
-
+                        //if the status of the article is still 'Approved', update the article
+                        if(req.body.Status === 'Approved')
+                        {
+                            element.Question =  req.body.Question;
+                            element.Category =  req.body.Category;
+                            element.RT_reference = req.body.RT_reference;
+                            element.Answer = req.body.Answer;
+                            element.Status = req.body.Status;
+                            element.Last_updated_by = req.decoded.email;
+                            element.Last_updated_on =  datetime;
+                        }
+                        //if the status is 'Retired'
+                        else if(req.body.Status === 'Retired')
+                        {
+                            current_articles.splice(index, 1);//update the status of the article
+                            console.log('REMOVING ARTICLE FROM CIRCULATIONS'); 
+                            //element.Status = req.body.Status; 
+                        }
                         //index_of_article = index;     
                         //console.log('found and updated artice');         
                     }    
                 });
+
+                if(article_found === 'NO')
+                {
+                    console.log('*********** article was not found ***********')
+                }
+
                 //if article is not found AND the article is approved, a submisson is being approved. Create a new element and push it to current_articles
                 if (article_found === 'NO' && req.body.Status === 'Approved')
                     {

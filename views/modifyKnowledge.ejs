@@ -289,7 +289,7 @@
   </div><!-- /.container-fluid -->
 </nav>
     <div class="container">
-        <h1>Modify Question</h1>
+        <h1>Modify Article</h1>
         <!--
         <p>QUESTION</p>
         <div class="editable" id="answer-field" contenteditable="true" role="textbox"> </div>
@@ -313,8 +313,10 @@
             </div>
             <center>
                 <div>
-                    <input onclick="verifyUserInputAndSend();" type="button" id="submit-question" name="submit-question" class="action-button green-button" value="Update Question">
-                    <input onclick="verifyUserInputAndCancel();"style="background-color: #e44c4c;" type="button" id="cancel-submission" name="cancel-submission" class="action-button red-button" value="Cancel Changes"/>  
+                    <input onclick="verifyUserInputAndSend();" type="button" id="submit-question" name="submit-question" class="action-button green-button" value="Update Article">
+                    <input onclick="verifyUserInputAndRetire();"style="background-color: #e44c4c;" type="button" id="retire-submission" name="retire-submission" class="action-button red-button" value="Retire Article"/>
+                    
+                    <input onclick="verifyUserInputAndCancel();"style="background-color: #737373; width: 97.5%" type="button" id="cancel-submission" name="cancel-submission" class="action-button" value="Cancel Changes"/>   
                 </div>
             </center>
 
@@ -343,7 +345,6 @@
         BootstrapDialog.confirmCancel = function(message, callback) {
             new BootstrapDialog({
                 title: 'Cancel Changes',
-                type:  BootstrapDialog.TYPE_DANGER,
                 message: message,
                 closable: false,
                 data: {
@@ -399,6 +400,50 @@
                             dialog.setClosable(false);
                             dialog.setTitle('Updating Question');
                             dialog.getModalBody().html('Updating the question');
+                           
+                           
+                            //dialog.setTitle('Message 1');
+
+
+                            //dialog.close();
+                        }
+                    }]
+            }).open();
+        };
+        
+        BootstrapDialog.confirmRetire = function(message, callback) {
+            new BootstrapDialog({
+                title: 'Retire Article',
+                type:  BootstrapDialog.TYPE_DANGER,
+                message: message,
+                closable: false,
+                data: {
+                    'callback': callback
+                },
+                buttons: [{
+                        label: 'Cancel Request',
+                        cssClass: 'red-button',
+                        action: function(dialog) {
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                            dialog.close();
+                        }
+                    }, {
+                       // icon: 'glyphicon glyphicon-send',
+                        label: 'Retire Article',
+                        cssClass: 'green-button',
+                        label: 'Send retirement request',
+                //cssClass: 'btn-primary',
+                        autospin: true,
+
+                        action: function(dialog) {      
+                              
+                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+
+                             //dialogRef.setClosable(false);
+                            dialog.enableButtons(false);
+                            dialog.setClosable(false);
+                            dialog.setTitle('Retiring Article');
+                            dialog.getModalBody().html('Retiring the question');
                            
                            
                             //dialog.setTitle('Message 1');
@@ -567,61 +612,82 @@
 
         };
 
-          /*       BootstrapDialog.alertReserveResponse = function(message, callback) {
-            new BootstrapDialog({
-                title: 'Requested Reservation Informration',
-                message: message,
-                data: {
-                    'callback': callback
-                },
-                closable: false,
-                buttons: [{
-                        label: 'OK',
-                        action: function(dialog) {
-                            typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
-                            dialog.close();
-                        }
-                    }]
-            }).open();
-        };
+        
+        function verifyUserInputAndRetire() {
+            
+       /*     var isError = false;
 
+            if($('#category-dropdown').val().trim() === ""){
+                console.log('invalid dropdown value');
+                //set off error flag
+                $("#category-dropdown").notify("Please select a value", { position:"top right" });
+                isError = true;
+            }
 
+            if($('#question-field').val().trim() === ""){
+                console.log('invalid question value');
+                $("#question-field").notify("Please enter a question", { position:"top right" });
+                //set off error flag
+                isError = true;
+            }
 
-                      BootstrapDialog.confirmUBER("Press 'Cancel' if this booking is to drive for UBER becuase appointments for UBER require to be booked at least 24 hours in advance.", function(result){
-                        if(result){
-                             BootstrapDialog.confirmReservation("Are you sure you want to make the appointment for: " + this.shiftDate + " for the " + shiftTime + "?", function(result2){
-                            if(result2){
-                                 $.ajax({
-                            
-                             url: 'https://shahbaz.poolcar.com/services/erive.asmx/CreateBooking',
-                             type: "POST",
-                             data: data_string,
-                             contentType: "application/json; charset=utf-8",
-                             dataType: 'json',
-                             success: function (data) {
-                                
-                                BootstrapDialog.alertReserveResponse(data.d.Message);
-                                
-                                
-                                console.log(data.d);
-
-                                   $table.bootstrapTable('remove', {
-                                    field: 'id',
-                                    values: [thisBooking.id]
-                                });
-
-                             }
-                             });
-                                
-                            
-                            }
-                            });
-                            
-                        }
-                      });
-
-
+            if($('#answer-field').text().trim() === ""){
+                console.log('invalid answer value');
+                $("#answer-field").notify("Please enter an answer", { position:"top right" });
+                //set off error flag
+                isError = true;
+            }
 */
+            BootstrapDialog.confirmRetire('Are you sure you want to retire the question?', function (result) {
+                    if(result)
+                    {
+
+                    //if(!isError) {
+                        var data = {};
+                        data._id = "<%= KNOWLEDGE_ARTICLE_ID %>";
+                        data.Category = current_category;
+                        data.Question = current_question;
+                        data.Answer = current_answer;
+                        data.RT_reference = current_RT_reference;
+                        data.Status = 'Retired';
+                        data.old_Question = current_question;
+                        data.old_Answer = current_answer;
+                        
+                        $.ajax({
+                            type: 'POST',
+                            data: JSON.stringify(data),
+                            contentType: 'application/json',
+                            url: '<%= API_SUBMIT_DOCUMENT_URL %>?token=<%= TOKEN %>',						
+                            success: function(data) {
+                                console.log(data.success);
+                                console.log(data);
+                                //ajax to update articles??
+                                BootstrapDialog.closeAll();
+                                if(data.success){
+                                    BootstrapDialog.alertSubmissionResponse('The question has been retired! :O', function() {
+                                        location.replace("<%= KNOWLEDGE_BASE_URL %>?token=<%= TOKEN %>");
+                                    });
+                                }
+                                
+                            }
+                        });
+
+                    //}
+
+                }
+            }); 
+
+                  /*  Question: req.body.Question,
+                    Category: req.body.Category,
+                    RT_reference: req.body.RT_reference,
+                    Answer: req.body.Answer,
+                    Status: req.body.Status,
+
+                */
+
+        }
+
+        
 
     </script>
 </body>

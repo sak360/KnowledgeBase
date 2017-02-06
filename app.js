@@ -8,7 +8,7 @@ var config = require('./config');
 var setupController = require('./controllers/setupController');
 var apiController = require('./controllers/apiController');
 
-var port = process.env.PORT || 8080;
+var port = 8005; //port 8005 for the Knowlesge Base app process.env.PORT || 
 
 //app.use('/assets', express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
