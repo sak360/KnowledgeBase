@@ -49,3 +49,5 @@ To continually improve the application, the following non-exhaustive list of ite
 - Dynamically built document tags (Machine Learning application)
 - Dynamically built cache of most relevant (average recency of use vs. average frequency of use) articles to transfer on load
 
+## Developer
+_Shahbaz Ali Khan_
