@@ -1,5 +1,5 @@
 # KnowledgeBase
-This is a Knowledge Base application built on the MEAN stack. A version of it is currently in production at [UIC's Learning Technology Solutions department] (http://skhan231.people.uic.edu:8080).
+This is a Knowledge Base application built on the MEAN stack. A version of it is currently in production at [UIC's Learning Technology Solutions department] (ltskb.uic.edu).
 
 View a demo of the application in action [HERE](https://youtu.be/mDB5pSo57go).
 
